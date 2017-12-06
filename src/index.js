@@ -18,7 +18,9 @@ export default class ReactMegaera extends Component {
   }
 
   componentWillUpdate(nextProps, nextState){
-    this.props.onChange(nextState);
+    if(this.props.onError){
+      this.props.onError(nextState);
+    }
   }
 
   componentWillMount(){
