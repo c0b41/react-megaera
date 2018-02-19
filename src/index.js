@@ -26,12 +26,13 @@ export default class ReactMegaera extends Component {
   componentWillMount(){
 
     window.onerror =  (message, filename, lineno, colno, err) => {
-    
-      let error = { 
+      if(err){
+       let error = { 
         title:err.toString(),
         stack:message,
       }
-      this.setState({error, hasError: true});    
+      this.setState({error, hasError: true});   
+      }         
     }
 
   }
