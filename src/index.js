@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 
 export default class ReactMegaera extends PureComponent {
   
-  static state = {
+  state = {
     error: null,
     hasError: false
   }
