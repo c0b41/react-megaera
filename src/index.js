@@ -1,20 +1,10 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { PureComponent } from 'react'
 
-
-export default class ReactMegaera extends Component {
-  static propTypes = {
-    template: PropTypes.node.isRequired
-  }
-
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      error: null,
-      hasError:false
-    }
-
+export default class ReactMegaera extends PureComponent {
+  
+  static state = {
+    error: null,
+    hasError: false
   }
 
   componentWillUpdate(nextProps, nextState){
@@ -23,34 +13,18 @@ export default class ReactMegaera extends Component {
     }
   }
 
-  componentWillMount(){
-
-    window.onerror =  (message, filename, lineno, colno, err) => {
-      if(err){
-       let error = { 
-        title:err.toString(),
-        stack:message,
-      }
-      this.setState({error, hasError: true});   
-      }         
-    }
-
-  }
-
   componentDidCatch(error, info) {
     this.setState({error, hasError: true});
   }
 
-
   render() {
-    const { children, template, ...props } = this.props
+    const { children, template, onError, ...props } = this.props
 
     if(this.state.hasError){
       return template
     }
 
-    return <div {...props}>{children}</div>
+    return React.cloneElement(children, { ...props })
     
-  }
- 
+  } 
 }
